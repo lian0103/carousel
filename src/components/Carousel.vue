@@ -22,7 +22,9 @@ function getShuffleArray() {
 
 const imgsArr = ref(getShuffleArray());
 
-const isProd = import.meta.env === 'production';
+const isProd = import.meta.env.VITE_ENV === 'prod';
+
+console.log('isProd',isProd)
 
 onMounted(() => {
   setInterval(() => {
