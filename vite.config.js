@@ -8,4 +8,8 @@ export default defineConfig({
     host: true,
     port: 8090
   },
+  base: '/carousel/',
+  build: {
+    outDir: 'docs',
+  }
 })
