@@ -37,8 +37,9 @@ body {
 .wrapper {
   margin: 0;
   width: 100vw;
-  height: 80vh;
-  display: grid;
-  place-content: center;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
 }
 </style>

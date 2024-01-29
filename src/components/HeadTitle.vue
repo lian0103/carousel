@@ -67,7 +67,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 4vw;
+  font-size: 3vw;
   margin: 0;
 }
 
@@ -75,7 +75,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 20vh;
+  height: 15vh;
   color: white;
   font-family: 'Open Sans', sans-serif;
   margin: 0;

@@ -1,16 +1,24 @@
 <template>
   <div class="gallery">
     <img
-      v-for="(item, idx) in imgsArr.slice(0, 19)"
+      v-for="(item, idx) in imgsArr.slice(0, 20)"
       :key="idx"
       :src="isProd ? `/carousel/albums/${item}.jpg` : `/albums/${item}.jpg`"
+      :style="{
+        display: idx > curIndex ? 'none' : 'block',
+        'z-index': idx > curIndex ? -1 : 1
+      }"
+      :class="{
+        fadeOutEffect1: idx >= curIndex && curIndex % 2 == 0,
+        fadeOutEffect2: idx >= curIndex && curIndex % 2 == 1,
+      }"
       alt=""
     />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 function getShuffleArray() {
   let array = new Array(136).fill(1).map((i, idx) => idx + 1);
   for (let i = array.length - 1; i > 0; i--) {
@@ -21,90 +29,93 @@ function getShuffleArray() {
 }
 
 const imgsArr = ref(getShuffleArray());
+const curIndex = ref(20);
 
 const isProd = import.meta.env.VITE_ENV === 'prod';
 
-console.log('isProd',isProd)
+console.log('isProd', isProd);
+let timeInterval = null;
+
+function animationInit() {
+  timeInterval = setInterval(() => {
+    // console.log('curIndex.value',curIndex.value)
+    if (curIndex.value - 1 < 0) {
+      imgsArr.value = getShuffleArray();
+      curIndex.value = 19;
+    } else {
+      curIndex.value = curIndex.value - 1;
+    }
+  }, 5000);
+}
 
 onMounted(() => {
-  setInterval(() => {
-    imgsArr.value = getShuffleArray();
-    console.log(imgsArr.value);
-  }, 60000);
+  animationInit();
+});
+
+onUnmounted(() => {
+  clearInterval(timeInterval);
 });
 </script>
 
 <style lang="scss">
-$n: 10; /* number of images*/
+$n: 20; /* number of images*/
 
 .gallery {
-  --d: 60s; /* duration */
-
-  display: grid;
-  width: 34vw;
+  position: relative;
+  width: 60vw;
   min-width: 600px;
 }
-.gallery > img {
-  grid-area: 1/1;
+.gallery img {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+  max-height: 80vh;
+  aspect-ratio: auto 3/4;
+  object-fit: contain;
   border: 10px solid #f2f2f2;
   box-shadow: 0 0 4px #0007;
-  animation: slide var(--d) infinite;
   border-radius: 15px;
-}
-.gallery img:last-child {
-  animation-name: slide-last;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 @for $i from 1 to ($n + 1) {
   .gallery > img:nth-child(#{$i}) {
-    animation-delay: calc(#{(1 - $i) / $n}* var(--d));
-    --r: #{(-20 + random(40)) * 1deg};
-  }
-}
-@keyframes slide {
-  0%,
-  100%,
-  #{100.01 - 100/$n}% {
-    transform: translateX(0%) rotate(var(--r));
-    z-index: 3;
-  }
-  #{50/$n}% {
-    transform: translateX(-120%) rotate(var(--r));
-    z-index: 3;
-  }
-  #{50/$n + .01}% {
-    transform: translateX(-120%) rotate(var(--r));
-    z-index: -3;
-  }
-  #{100/$n}%,
-  #{100 - 100/$n}% {
-    transform: translateX(0%) rotate(var(--r));
-    z-index: -3;
+    --r: #{(-10 + random(15)) * 1deg};
+    transform: rotate(var(--r));
   }
 }
 
-@keyframes slide-last {
-  0%,
-  100%,
-  #{100.01 - 50/$n}% {
-    transform: translateX(0%) rotate(var(--r));
-    z-index: 3;
+.fadeOutEffect1 {
+  opacity: 1;
+  animation: fadeOut1 2s forwards;
+}
+
+.fadeOutEffect2 {
+  opacity: 1;
+  animation: fadeOut2 2s forwards;
+}
+
+
+@keyframes fadeOut1 {
+  0% {
+    left: 0;
+    opacity: 1;
   }
-  #{50/$n}% {
-    transform: translateX(120%) rotate(var(--r));
-    z-index: 3;
+  100% {
+    opacity: 0;
+    left: -20%;
   }
-  #{50/$n + .01}% {
-    transform: translateX(120%) rotate(var(--r));
-    z-index: -3;
+}
+
+@keyframes fadeOut2 {
+  0% {
+    left: 0;
+    opacity: 1;
   }
-  #{100/$n}%,
-  #{100 - 50/$n}% {
-    transform: translateX(0%) rotate(var(--r));
-    z-index: -3;
+  100% {
+    opacity: 0;
+    left: 20%;
   }
 }
 </style>
