@@ -1,15 +1,15 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
     host: true,
-    port: 8090
+    port: 8090,
   },
-  base: '/carousel/',
+  base: import.meta.env === 'production' ? '/carousel/' : '/',
   build: {
     outDir: 'docs',
-  }
-})
+  },
+});

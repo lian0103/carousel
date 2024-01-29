@@ -1,9 +1,9 @@
 <template>
   <div class="gallery">
     <img
-      v-for="(item,idx) in imgsArr.slice(0, 19)"
+      v-for="(item, idx) in imgsArr.slice(0, 19)"
       :key="idx"
-      :src="`/albums/${item}.jpg`"
+      :src="isProd ? `/carousel/albums/${item}.jpg` : `/albums/${item}.jpg`"
       alt=""
     />
   </div>
@@ -22,7 +22,7 @@ function getShuffleArray() {
 
 const imgsArr = ref(getShuffleArray());
 
-
+const isProd = import.meta.env === 'production';
 
 onMounted(() => {
   setInterval(() => {
@@ -40,7 +40,7 @@ $n: 10; /* number of images*/
 
   display: grid;
   width: 34vw;
-  min-width: 600px
+  min-width: 600px;
 }
 .gallery > img {
   grid-area: 1/1;
