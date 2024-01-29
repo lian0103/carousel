@@ -40,6 +40,6 @@ body {
   min-height: 85vh;
   display: flex;
   justify-content: center;
-  padding: 30px 0;
+  padding-top: 50px;
 }
 </style>

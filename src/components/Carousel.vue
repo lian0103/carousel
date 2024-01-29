@@ -41,7 +41,7 @@ function animationInit() {
     // console.log('curIndex.value',curIndex.value)
     if (curIndex.value - 1 < 0) {
       imgsArr.value = getShuffleArray();
-      curIndex.value = 19;
+      curIndex.value = 20;
     } else {
       curIndex.value = curIndex.value - 1;
     }
@@ -62,8 +62,8 @@ $n: 20; /* number of images*/
 
 .gallery {
   position: relative;
-  width: 60vw;
-  min-width: 600px;
+  width: 80vw;
+  max-width: 800px;
 }
 .gallery img {
   position: absolute;
@@ -74,7 +74,7 @@ $n: 20; /* number of images*/
   aspect-ratio: auto 3/4;
   object-fit: contain;
   border: 10px solid #f2f2f2;
-  box-shadow: 0 0 4px #0007;
+  box-shadow: 1px 1px 6px #0007;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.8);
 }

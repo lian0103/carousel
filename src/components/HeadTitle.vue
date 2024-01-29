@@ -1,24 +1,23 @@
 <template>
   <div class="typingWrapper">
-    🐲🌱🎊 
-    <h1 class="typing" id="typing"></h1>
-     🌱🎊🐲
+    <span>🐲🌱🎊 </span>
+    <h1 class="typing" id="typing">{{ curText }}</h1>
+    <span>🌱🎊🐲</span>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted , ref } from 'vue';
 
-const greeting = ['三峽北大夜騎隊', '揮揮手隊', '歲末聯合感恩聚會'];
+const greeting = ['三峽北大夜騎隊', '揮揮手隊', '歲末聯合感恩聚會!'];
 let currentGreetingIndex = 0;
 let currentCharacterIndex = 0;
 let isDeleting = false;
 let isPaused = false;
 let pauseEnd = 0;
+const curText = ref('');
 
 function typeWriterEffect() {
-  const greetingElement = document.getElementById('typing');
-
   if (isPaused && Date.now() > pauseEnd) {
     isPaused = false;
     if (isDeleting) {
@@ -46,7 +45,7 @@ function typeWriterEffect() {
   }
 
   const timeout = isDeleting ? 100 : 200;
-  greetingElement.innerText = greeting[currentGreetingIndex].substring(
+  curText.value = greeting[currentGreetingIndex].substring(
     0,
     currentCharacterIndex
   );
@@ -61,7 +60,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style lang="scss">
 .typingWrapper {
   display: flex;
   align-items: center;
@@ -69,6 +68,16 @@ onMounted(() => {
   font-weight: 700;
   font-size: 3vw;
   margin: 0;
+  span {
+    font-size: 44px;
+    letter-spacing: 10px;
+  }
+  @media (max-width: 440px) {
+    span {
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
+  }
 }
 
 .typing {
