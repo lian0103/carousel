@@ -1,7 +1,7 @@
 <template>
   <div class="gallery">
     <img
-      v-for="(item, idx) in imgsArr.slice(0, 20)"
+      v-for="(item, idx) in imgsArr.slice(0, 10)"
       :key="idx"
       :src="isProd ? `/carousel/albums/${item}.jpg` : `/albums/${item}.jpg`"
       :style="{
@@ -29,7 +29,7 @@ function getShuffleArray() {
 }
 
 const imgsArr = ref(getShuffleArray());
-const curIndex = ref(20);
+const curIndex = ref(10);
 
 const isProd = import.meta.env.VITE_ENV === 'prod';
 
@@ -41,7 +41,7 @@ function animationInit() {
     // console.log('curIndex.value',curIndex.value)
     if (curIndex.value - 1 < 0) {
       imgsArr.value = getShuffleArray();
-      curIndex.value = 20;
+      curIndex.value = 10;
     } else {
       curIndex.value = curIndex.value - 1;
     }
@@ -58,7 +58,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-$n: 20; /* number of images*/
+$n: 10; /* number of images*/
 
 .gallery {
   position: relative;
