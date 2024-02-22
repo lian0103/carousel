@@ -1,6 +1,22 @@
 <template>
   <div class="gallery">
-    <img
+    <div
+      class="bg-img"
+      v-for="(item, idx) in imgsArr.slice(0, 10)"
+      :key="idx"
+      :style="{
+        'background-image': `url(
+          ${isProd ? `/carousel/albums/${item}.jpg` : `/albums/${item}.jpg`}
+        )`,
+        display: idx > curIndex ? 'none' : 'block',
+        'z-index': idx > curIndex ? -1 : 1,
+      }"
+      :class="{
+        fadeOutEffect1: idx >= curIndex && curIndex % 2 == 0,
+        fadeOutEffect2: idx >= curIndex && curIndex % 2 == 1,
+      }"
+    >{{ idx }}</div>
+    <!-- <img
       v-for="(item, idx) in imgsArr.slice(0, 10)"
       :key="idx"
       :src="isProd ? `/carousel/albums/${item}.jpg` : `/albums/${item}.jpg`"
@@ -13,14 +29,14 @@
         fadeOutEffect2: idx >= curIndex && curIndex % 2 == 1,
       }"
       alt=""
-    />
+    /> -->
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 function getShuffleArray() {
-  let array = new Array(136).fill(1).map((i, idx) => idx + 1);
+  let array = new Array(138).fill(1).map((i, idx) => idx + 1);
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -62,10 +78,10 @@ $n: 10; /* number of images*/
 
 .gallery {
   position: relative;
-  width: 80vw;
-  max-width: 800px;
+  width: 90vw;
+  // max-width: 800px;
 }
-.gallery img {
+.gallery img , .gallery .bg-img {
   position: absolute;
   left: 0;
   top: 0;
@@ -79,9 +95,14 @@ $n: 10; /* number of images*/
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.gallery .bg-img{
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+
 @for $i from 1 to ($n + 1) {
-  .gallery > img:nth-child(#{$i}) {
-    --r: #{(-10 + random(15)) * 1deg};
+  .gallery > img:nth-child(#{$i}) , .gallery > .bg-img:nth-child(#{$i})  {
+    --r: #{(-10 + random(20)) * 1deg};
     transform: rotate(var(--r));
   }
 }
@@ -95,7 +116,6 @@ $n: 10; /* number of images*/
   opacity: 1;
   animation: fadeOut2 2s forwards;
 }
-
 
 @keyframes fadeOut1 {
   0% {
