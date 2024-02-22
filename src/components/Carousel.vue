@@ -15,7 +15,7 @@
         fadeOutEffect1: idx >= curIndex && curIndex % 2 == 0,
         fadeOutEffect2: idx >= curIndex && curIndex % 2 == 1,
       }"
-    >{{ idx }}</div>
+    ></div>
     <!-- <img
       v-for="(item, idx) in imgsArr.slice(0, 10)"
       :key="idx"
@@ -86,7 +86,7 @@ $n: 10; /* number of images*/
   left: 0;
   top: 0;
   width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   aspect-ratio: auto 3/4;
   object-fit: contain;
   border: 10px solid #f2f2f2;
@@ -97,12 +97,12 @@ $n: 10; /* number of images*/
 
 .gallery .bg-img{
   background-size: contain;
-  background-repeat: repeat-x;
+  background-repeat: repeat;
 }
 
 @for $i from 1 to ($n + 1) {
   .gallery > img:nth-child(#{$i}) , .gallery > .bg-img:nth-child(#{$i})  {
-    --r: #{(-10 + random(20)) * 1deg};
+    --r: #{(-5 + random(5)) * 1deg};
     transform: rotate(var(--r));
   }
 }

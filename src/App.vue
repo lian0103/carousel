@@ -20,7 +20,7 @@ body {
   background-image: url('./assets/bg1.png'),url('./assets/bg2.png'),url('./assets/bg3.png');
   background-color: #333;
   font-family: helvetica, arial;
-  animation: snow 20s linear infinite;
+  // animation: snow 20s linear infinite;
 }
 
 @keyframes snow {
@@ -40,6 +40,6 @@ body {
   min-height: 85vh;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 10px;
 }
 </style>
