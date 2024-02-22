@@ -78,7 +78,7 @@ $n: 10; /* number of images*/
 
 .gallery {
   position: relative;
-  width: 90vw;
+  width: 95vw;
   // max-width: 800px;
 }
 .gallery img , .gallery .bg-img {
@@ -86,7 +86,7 @@ $n: 10; /* number of images*/
   left: 0;
   top: 0;
   width: 100%;
-  max-height: 90vh;
+  max-height: 81vh;
   aspect-ratio:9/16;
   // object-fit: contain;
   border: 10px solid #f2f2f2;
