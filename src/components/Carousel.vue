@@ -87,8 +87,8 @@ $n: 10; /* number of images*/
   top: 0;
   width: 100%;
   max-height: 90vh;
-  aspect-ratio: auto 3/4;
-  object-fit: contain;
+  aspect-ratio:9/16;
+  // object-fit: contain;
   border: 10px solid #f2f2f2;
   box-shadow: 1px 1px 6px #0007;
   border-radius: 15px;
@@ -96,8 +96,9 @@ $n: 10; /* number of images*/
 }
 
 .gallery .bg-img{
-  background-size: contain;
-  background-repeat: repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @for $i from 1 to ($n + 1) {
