@@ -103,7 +103,7 @@ $n: 10; /* number of images*/
 
 @for $i from 1 to ($n + 1) {
   .gallery > img:nth-child(#{$i}) , .gallery > .bg-img:nth-child(#{$i})  {
-    --r: #{(-5 + random(5)) * 1deg};
+    --r: #{(-2+ random(2)) * 1deg};
     transform: rotate(var(--r));
   }
 }
